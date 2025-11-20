@@ -335,24 +335,20 @@ df["monthlyrate"] = df["monthlyrate"].str.replace("$", "", regex=False).str.repl
 df["monthlyrate"] = df["monthlyrate"] = pd.to_numeric(df["monthlyrate"], errors="coerce")
 --> errors="coerce" asegura que si no se cumple convierte en NaN ie. 40 esta como 'forty'
 
-**numcompaniesworked**
+**numcompaniesworked** MAYKA 2.0
 Número de empresas previas en las que ha trabajado
-> . Values 1678 | Unique 10 (0-9) | NaN 0 | dtype float
+> . Valores = array([7, 0, 1, 3, 2, 4, 8, 9, 5, 6])
+dtype('int64') Values 1678 | Unique 10 (0-9) | NaN 0 | dtype float
 
 propuesta de mejora:
 > . no se. entiendo que son la cantidad de empresas donde el trabajador ha trabajado. cv - empleos en companias anteriores.
   
-**over18**  
-Columna no definida - employees mayores de edad?
-> . Values 1678 | dtype Object | Unique 1 | NaN 1 (938 valores NaN -- muchos, la mayoria)
-no existe valor N (No), solo Y (Yes) o NaN.
-interpreto que es muy incompleto, con 56% NaN, para darle peso en el analysis global. 
-muestra de valores y counts:
-NaN    938
-Y      740
+**over18**  MAYKA 2.0
+Columna no definida
+> . Valores = array(['Y', nan], dtype=object)
 
 propuesta de mejora: 
-> . propongo omitirlo por falta de valor/peso analytico.
+> . Clase: Gestion de Nulos propongo omitirlo por falta de valor/peso analytico.
 
 **overtime**  MAYKA
 Indica si el empleado trabaja horas extras (Yes/No)
@@ -386,44 +382,74 @@ df["performancerating"] = df["performancerating"].astype(float)
 Quedaría: array([3., 4., 0.]) // dtype('float64')
 
 
-**relationshipsatisfaction** 
+**relationshipsatisfaction** PATRICIA
 Satisfacción con relaciones interpersonales en el trabajo
-> . 
+> Valores = array([3, 1, 4, 2])
+dtype('int64')
+
+propuesta de mejora:
+> Mantener sin cambios  
+
+NOTA: como next steps, poder definir y documentar explícitamente el significado de cada valor: 
+    1: 'Insatisfecho',
+    2: 'Poco satisfecho',
+    3: 'Satisfecho',
+    4: 'Muy satisfecho'
 
 propuesta de mejora: 
 > . 
 
 
-**standardhours**  
+**standardhours** PATRICIA
 Clasificación de jornada (Full Time/Part Time)
-> . 
+> Valores = array(['Full Time', nan, 'Part Time'], 
+dtype=object)
+
+- Faltan valores: nan 
 
 propuesta de mejora: 
-> . 
+> Mirar la relacion con otras columnas para asegurarnos si el nan es por falta de informacion, o por otro tipo de clasificacion de jornada (ej: 'Freelance'?, 'Otro', 'No Especificado') 
+EJ: df['standardhours'] = df['standardhours'].replace(np.nan, 'No especificado')
 
 
-**stockoptionlevel** 
+**stockoptionlevel** MAYKA 2.0 
 Nivel de opciones sobre acciones asignadas 
-> . 
+> . Valores = array([0, 1, 2, 3])
 
 propuesta de mejora: 
-> . 
+> . En principio nada
 
 
-**totalworkingyears** 
+**totalworkingyears** MAYKA 2.0
 Años totales de experiencia laboral 
-> . 
+> . Valores = array([nan, '34,0', '22,0', '28,0', '20,0', '21,0', '33,0', '40,0',
+       '18,0', '25,0', '15,0', '17,0', '26,0', '16,0', '24,0', '14,0',
+       '23,0', '27,0', '19,0', '11,0', '38,0', '37,0', '13,0', '12,0',
+       '29,0', '10,0', '36,0', '35,0', '9,0', '31,0', '32,0', '8,0',
+       '7,0', '30,0', '6,0', '5,0', '4,0', '3,0', '2,0', '1,0', '0,0'],
+      dtype=object)
 
 propuesta de mejora: 
 > . 
+# 1. Reemplazar la "," por "."
+df["totalworkingyears"] = df["totalworkingyears"].str.replace(',', '.')
+# 2. posibilidad de cambiar a 0 Gestión de nulos
+df["totalworkingyears"] = df["totalworkingyears"].fillna(0)
+# 3. convertir a float
+df["totalworkingyears"] = df["totalworkingyears"].astype(float)
 
-
-**trainingtimeslastyear** 
+Resultado: array([ 0, 34, 22, 28, 20, 21, 33, 40, 18, 25, 15, 17, 26, 16, 24, 14, 23,
+       27, 19, 11, 38, 37, 13, 12, 29, 10, 36, 35,  9, 31, 32,  8,  7, 30,
+        6,  5,  4,  3,  2,  1])
+git 
+**trainingtimeslastyear** MAYKA 2.0
 Número de sesiones de entrenamiento en el último año 
-> . 
+> . array([5, 3, 2, 0, 1, 4, 6])
 
 propuesta de mejora: 
-> . 
+> . En principio nada 
+
+
 
 
 **worklifebalance**  MAYKA
