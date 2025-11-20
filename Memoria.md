@@ -50,7 +50,7 @@ En las que se observan los siguientes patrones y características:
 
 *patrones globales* 
 > valores numericos de $  - 
-.str.replace() - cambiando , por . y $ por ""
+.str.replace()  - cambiando "," por "." y $ por ""
 .to_numeric() - convertir de objeto a int/float
 .round() - elegir decimal (creo que los centimos no dan peso)
 anadir $ con metodos que desconocemos ahora que no afectan dtype int/float
@@ -335,20 +335,28 @@ df["monthlyrate"] = df["monthlyrate"].str.replace("$", "", regex=False).str.repl
 df["monthlyrate"] = df["monthlyrate"] = pd.to_numeric(df["monthlyrate"], errors="coerce")
 --> errors="coerce" asegura que si no se cumple convierte en NaN ie. 40 esta como 'forty'
 
-**numcompaniesworked** MAYKA 2.0
+**numcompaniesworked** MAYKA 2.0 - CLAUDIA combo-git
 Número de empresas previas en las que ha trabajado
 > . Valores = array([7, 0, 1, 3, 2, 4, 8, 9, 5, 6])
-dtype('int64') Values 1678 | Unique 10 (0-9) | NaN 0 | dtype float
+dtype('int64') 
+> . Values 1678 | Unique 10 (0-9) | NaN 0 | dtype int
 
 propuesta de mejora:
 > . no se. entiendo que son la cantidad de empresas donde el trabajador ha trabajado. cv - empleos en companias anteriores.
   
-**over18**  MAYKA 2.0
+**over18**  MAYKA 2.0 - CLAUDIA combo-git
 Columna no definida
 > . Valores = array(['Y', nan], dtype=object)
+> . Values 1678 | dtype Object | Unique 1 | NaN 1 (938 valores NaN -- muchos, la mayoria)
+no existe valor N (No), solo Y (Yes) o NaN.
+interpreto que es muy incompleto, con 56% NaN, para darle peso en el analysis global. 
+muestra de valores y counts:
+NaN    938
+Y      740
 
 propuesta de mejora: 
 > . Clase: Gestion de Nulos propongo omitirlo por falta de valor/peso analytico.
+> . propongo omitirlo por falta de valor/peso analytico.
 
 **overtime**  MAYKA
 Indica si el empleado trabaja horas extras (Yes/No)
