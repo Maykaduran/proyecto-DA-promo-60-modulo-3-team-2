@@ -50,34 +50,46 @@ En las que se observan los siguientes patrones y características:
 
 **age**     
 Edad del empleado
-> presenta números y ('51', '52'...) y palabras ('fifty-five').
+> Presenta números y ('51', '52'...) y palabras ('fifty-five').
+**dtype: int64**
 
 propuesta de mejora:
-> .
+> Homogeneizar al mismo formato numérico.
+propuesta de mejora:
+> homogeneizar al mismo formato numérico.
 
 **attrition**   
 Indica si el empleado dejó la empresa (Yes/No)
-> .
+> presenta Yes/No. **dtype: objeto.**
 
 propuesta de mejora:
-> .
+> Sin anomalías
 
 **businesstravel**  
 Frecuencia de viajes
-> .
+> presenta valores 2 valores nulos (*nan*), 'travel_rarely', 
+'travel_frequently', 'non-travel'. **dtype: object**
+
+> Hay que investigar si el NaN tiene más valores NaN asociados al 
+mismo empleado.
 
 propuesta de mejora:
-> .
+> Sustituir NaN por None o Null según queramos procesar los datos 
+más adelante (paso a SQL).
 
 **dailyrate**   
-Tarifa diaria estimada para clientes, calculada en base al salario
+Tarifa diaria estimada para clientes, calculada en base a l 
+salario
 
-> .
+> Hay 673 valores únicos con decimales largos y variados.**dtype: int64**
 
 propuesta de mejora:
-> 
+> Usar ``round()`` para estandarizar la precisión. 
+> Asegurarse de aplicar el mismo criterio a todas las columnas 
+numéricas relativas a salario del dataset (puntuación y redondeo).
 
-**department** MAYKA
+
+**department** MAYKA        
 Departamento en el que trabaja el empleado
 > . Valores = array([nan, ' Research & Development ', ' Sales ', ' Human Resources '],
       dtype=object)
@@ -90,15 +102,22 @@ Human Resources              16
 Name: count, dtype: int64
 
 propuesta de mejora:
-> .
-# 1. Convertir a minuscula todos los nombres
- df["department"] = df["department"].str.lower()
+> Convertir a minuscula todos los nombres
+ ``df["department"] = df["department"].str.lower()``
  array([nan, ' research & development ', ' sales ', ' human resources '],
       dtype=object)
 
-**distancefromhome** MAYKA 
+> Cruzar los datos con las columnas de datos reiterados que 
+puedan tener este valor en ausencia de estar registrados en ésta. 
+En caso negativo: conservar el nulo en el formato según queramos 
+procesarlo más adelante (paso a SQL), si no es un empleado con 
+todos los valores nulos.
+    
+    referencia: columna 'roledepartament'
+
+**distancefromhome** MAYKA  
 Distancia en millas o kilómetros desde el hogar al trabajo
-> . Valores = array([  6,   1,   4,   2,   3,  22,  25,   9,   7,  23,  10,  12,  14,
+> Presenta valores = array([  6,   1,   4,   2,   3,  22,  25,   9,   7,  23,  10,  12,  14,
        -13,  15,   8, -42,  28, -37,   5,  16, -35,  26, -26,  24,  29,
        -25,  17,  21, -18, -10, -30, -27,  20, -31, -29, -39,  18, -21,
        -15,  11,  13, -14,  19, -33, -34, -46, -36, -19,  27, -12, -23,
