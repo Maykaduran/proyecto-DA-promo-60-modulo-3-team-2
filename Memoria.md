@@ -50,46 +50,34 @@ En las que se observan los siguientes patrones y características:
 
 **age**     
 Edad del empleado
-> Presenta números y ('51', '52'...) y palabras ('fifty-five').
-**dtype: int64**
+> presenta números y ('51', '52'...) y palabras ('fifty-five').
 
 propuesta de mejora:
-> Homogeneizar al mismo formato numérico.
-propuesta de mejora:
-> homogeneizar al mismo formato numérico.
+> .
 
 **attrition**   
 Indica si el empleado dejó la empresa (Yes/No)
-> presenta Yes/No. **dtype: objeto.**
+> .
 
 propuesta de mejora:
-> Sin anomalías
+> .
 
 **businesstravel**  
 Frecuencia de viajes
-> presenta valores 2 valores nulos (*nan*), 'travel_rarely', 
-'travel_frequently', 'non-travel'. **dtype: object**
-
-> Hay que investigar si el NaN tiene más valores NaN asociados al 
-mismo empleado.
+> .
 
 propuesta de mejora:
-> Sustituir NaN por None o Null según queramos procesar los datos 
-más adelante (paso a SQL).
+> .
 
 **dailyrate**   
-Tarifa diaria estimada para clientes, calculada en base a l 
-salario
+Tarifa diaria estimada para clientes, calculada en base al salario
 
-> Hay 673 valores únicos con decimales largos y variados.**dtype: int64**
+> .
 
 propuesta de mejora:
-> Usar ``round()`` para estandarizar la precisión. 
-> Asegurarse de aplicar el mismo criterio a todas las columnas 
-numéricas relativas a salario del dataset (puntuación y redondeo).
+> 
 
-
-**department** MAYKA        
+**department** MAYKA
 Departamento en el que trabaja el empleado
 > . Valores = array([nan, ' Research & Development ', ' Sales ', ' Human Resources '],
       dtype=object)
@@ -102,22 +90,15 @@ Human Resources              16
 Name: count, dtype: int64
 
 propuesta de mejora:
-> Convertir a minuscula todos los nombres
- ``df["department"] = df["department"].str.lower()``
+> .
+# 1. Convertir a minuscula todos los nombres
+ df["department"] = df["department"].str.lower()
  array([nan, ' research & development ', ' sales ', ' human resources '],
       dtype=object)
 
-> Cruzar los datos con las columnas de datos reiterados que 
-puedan tener este valor en ausencia de estar registrados en ésta. 
-En caso negativo: conservar el nulo en el formato según queramos 
-procesarlo más adelante (paso a SQL), si no es un empleado con 
-todos los valores nulos.
-    
-    referencia: columna 'roledepartament'
-
-**distancefromhome** MAYKA  
+**distancefromhome** MAYKA 
 Distancia en millas o kilómetros desde el hogar al trabajo
-> Presenta valores = array([  6,   1,   4,   2,   3,  22,  25,   9,   7,  23,  10,  12,  14,
+> . Valores = array([  6,   1,   4,   2,   3,  22,  25,   9,   7,  23,  10,  12,  14,
        -13,  15,   8, -42,  28, -37,   5,  16, -35,  26, -26,  24,  29,
        -25,  17,  21, -18, -10, -30, -27,  20, -31, -29, -39,  18, -21,
        -15,  11,  13, -14,  19, -33, -34, -46, -36, -19,  27, -12, -23,
@@ -316,20 +297,21 @@ Tarifa mensual estimada en función de la tarifa diaria
 propuesta de mejora:
 > . 
 
-**numcompaniesworked**
+**numcompaniesworked** MAYKA 2.0
 Número de empresas previas en las que ha trabajado
-> .
+> . Valores = array([7, 0, 1, 3, 2, 4, 8, 9, 5, 6])
+dtype('int64')
 
 propuesta de mejora:
 > . 
 
   
-**over18**  
+**over18**  MAYKA 2.0
 Columna no definida
-> .
+> . Valores = array(['Y', nan], dtype=object)
 
 propuesta de mejora: 
-> .
+> . Clase: Gestion de Nulos
 
 **overtime**  MAYKA
 Indica si el empleado trabaja horas extras (Yes/No)
@@ -380,28 +362,44 @@ propuesta de mejora:
 > . 
 
 
-**stockoptionlevel** 
+**stockoptionlevel** MAYKA 2.0 
 Nivel de opciones sobre acciones asignadas 
-> . 
+> . Valores = array([0, 1, 2, 3])
 
 propuesta de mejora: 
-> . 
+> . En principio nada
 
 
-**totalworkingyears** 
+**totalworkingyears** MAYKA 2.0
 Años totales de experiencia laboral 
-> . 
+> . Valores = array([nan, '34,0', '22,0', '28,0', '20,0', '21,0', '33,0', '40,0',
+       '18,0', '25,0', '15,0', '17,0', '26,0', '16,0', '24,0', '14,0',
+       '23,0', '27,0', '19,0', '11,0', '38,0', '37,0', '13,0', '12,0',
+       '29,0', '10,0', '36,0', '35,0', '9,0', '31,0', '32,0', '8,0',
+       '7,0', '30,0', '6,0', '5,0', '4,0', '3,0', '2,0', '1,0', '0,0'],
+      dtype=object)
 
 propuesta de mejora: 
 > . 
+# 1. Reemplazar la "," por "."
+df["totalworkingyears"] = df["totalworkingyears"].str.replace(',', '.')
+# 2. posibilidad de cambiar a 0 Gestión de nulos
+df["totalworkingyears"] = df["totalworkingyears"].fillna(0)
+# 3. convertir a float
+df["totalworkingyears"] = df["totalworkingyears"].astype(float)
 
-
-**trainingtimeslastyear** 
+Resultado: array([ 0, 34, 22, 28, 20, 21, 33, 40, 18, 25, 15, 17, 26, 16, 24, 14, 23,
+       27, 19, 11, 38, 37, 13, 12, 29, 10, 36, 35,  9, 31, 32,  8,  7, 30,
+        6,  5,  4,  3,  2,  1])
+git 
+**trainingtimeslastyear** MAYKA 2.0
 Número de sesiones de entrenamiento en el último año 
-> . 
+> . array([5, 3, 2, 0, 1, 4, 6])
 
 propuesta de mejora: 
-> . 
+> . En principio nada 
+
+
 
 
 **worklifebalance**  MAYKA
