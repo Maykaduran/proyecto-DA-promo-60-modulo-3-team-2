@@ -127,9 +127,9 @@ Propuesta de mejora:
        array([nan, ' research & development ', ' sales ', ' human resources '],
       dtype=object)
 
-- Comparar los valores nulos con las columnas que incluyen datos aparentemente reiterados, que pueden contener este valor en ausencia de estar presentes en esta columna. 
+- Comparar los valores nulos con las columnas que incluyen datos aparentemente reiterados, que pueden contener este valor en ausencia de estar presentes en esta columna.
 
-  ->  referencia : columna ``'roledepartament'``      
+  ->  referencia: columna [roledepartament](#roledepartment)      
 
   En caso de doble ausencia: recomiendo conservar el nulo en el formato que nos requiera el proyecto para procesarlo, si no es un empleado con todos los valores nulos:   
   ``df['department'] = df['department'].fillna('None')``
@@ -170,7 +170,7 @@ Sin anomalías.
        'Marketing', 'Human Resources'.
 
 Propuesta de mejora:
-- Misma propuesta para los nulos que para la columna ``department``.
+- Misma propuesta para los nulos que para la columna [department](#department).
 - Convertir a minuscula todos los nombres        
 ``df["educationfield"] = df["educationfield"].str.lower()``
 
@@ -414,7 +414,7 @@ Interpreto que es muy incompleto, con 56% NaN, para darle peso en el analysis gl
 
 Propuesta de mejora:
 - Clase: Gestion de Nulos propongo omitirlo por falta de valor/peso analytico.
-- ¿Comprobar si coinciden con los valores de la columna ``overtime``?
+- ¿Comprobar si coinciden con los valores de la columna [overtime](#overtime)?
 ---
 #### overtime
 (dtype: object)      
@@ -518,7 +518,7 @@ Propuesta de mejora:
                      
        Resultado: array([ 0, 34, 22, 28, 20, 21, 33, 40, 18, 25, 15, 17, 26, 16, 24, 14, 23, 27, 19, 11, 38, 37, 13, 12, 29, 10, 36, 35,  9, 31, 32,  8,  7, 30, 6,  5,  4,  3,  2,  1])
 
-- Comprobar si el nulo en años de experiencia laboral es dispar con la columna ``umcompaniesworked``.
+- Comprobar si el nulo en años de experiencia laboral es dispar con la columna [numcompaniesworked](#numcompaniesworked).
 ---
 #### trainingtimeslastyear
 (dtype: int64)       
@@ -558,7 +558,7 @@ Propuesta de mejora:
 Propuesta de mejora:        
 Mantener sin cambios.
 
-- Sería interesante comparar los años en la empresa actual con los valores nulos en la columna ``totalworkingyears`` para comprobar qué relato/perfil nos devuelve.
+- Sería interesante comparar los años en la empresa actual con los valores nulos en la columna [totalworkingyears](#numcompaniesworked) para comprobar qué relato/perfil nos devuelve.
 ---
 #### yearsincurrentrole
 (dtype: object)      
@@ -613,7 +613,7 @@ Propuesta de mejora:
 
 ``df["sameasmonthlyincome"] = df["sameasmonthlyincome"].astype(float)``
 
-- ¿Comprobar si esta columna es una copia redundante de ``monthlyincome``?
+- ¿Comprobar si esta columna es una copia redundante de [monthlyincome](#monthlyincome)?
 ---
 #### datebirth
 (dtype: int64)       
@@ -671,7 +671,7 @@ Propuesta de mejora:
        ' sales representative  -  sales ',
        ' manager  -  human resources ']
 
-- ¿Comprobar si esta columna es redundante o si contiene los datos que faltan en ``department`` y ``jobrole``?
+- ¿Comprobar si esta columna es redundante o si contiene los datos que faltan en [department](#department) y [jobrole](#jobrole)?
 - ¿Destinarla a eliminación una vez reubicados todos los valores?
 ---
 #### numberchildren
