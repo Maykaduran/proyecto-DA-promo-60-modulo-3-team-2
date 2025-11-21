@@ -495,10 +495,15 @@ O:
        dtype=object)
 
 Faltan valores: ``NaN``.
+standardhours tiene 927 'part time', 400 full time y 351 nulos
+-por qué faltan las horas estándar a 351 registros?
+-error de registro? categoría ausente para alguna trabajadora?
+-dependiendo de lo que sea: 1)Reemplazar nulos por otra catergoría 'desconocido'; 2)Eliminar nulos
 
 Propuesta de mejora:
 - Mirar la relacion con otras columnas para asegurarnos si el nulo es por falta de informacion, o por otro tipo de clasificacion de jornada (ej: 'Freelance'?, 'Otro', 'No Especificado'). EJ:    
  ``df['standardhours'] = df['standardhours'].replace(np.nan, 'No especificado')``
+ `` df['standardhours'] = df['standardhours'].str.lower()`` # convertir todo a minúsculas para normalizar todas categorías
 
 ---
 ### stockoptionlevel
