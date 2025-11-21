@@ -2,7 +2,7 @@
 
 ### Conclusiones del Análisis Exploratorio de Datos (EDA)
 
-El archivo *.csv* proporcionado para el proyecto presenta las siguientes columnas con datos:
+El [archivo con datos crudos](Análisis_y_transformación_datos\raw_data.csv) proporcionado para el proyecto presenta las siguientes columnas con datos:
 
 - [Age](#age)
 - [Attrition](#attrition)
